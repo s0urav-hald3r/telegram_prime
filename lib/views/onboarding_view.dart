@@ -2,11 +2,9 @@ import 'package:fadingpageview/fadingpageview.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:telegram_prime/config/colors.dart';
-import 'package:telegram_prime/config/constants.dart';
 import 'package:telegram_prime/config/extension.dart';
 import 'package:telegram_prime/config/images.dart';
 import 'package:telegram_prime/controllers/home_controller.dart';
-import 'package:telegram_prime/services/local_storage.dart';
 import 'package:telegram_prime/services/navigator_key.dart';
 import 'package:telegram_prime/views/premium_view.dart';
 
@@ -163,7 +161,7 @@ class _OnboardingViewState extends State<OnboardingView> {
 
                       pageController.next();
                     } else {
-                      LocalStorage.addData(isOnboardingDone, true);
+                      // LocalStorage.addData(isOnboardingDone, true);
                       NavigatorKey.pushReplacement(const PremiumView());
                     }
                   },

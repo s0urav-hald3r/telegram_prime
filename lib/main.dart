@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:telegram_prime/config/constants.dart';
 import 'package:telegram_prime/controllers/home_controller.dart';
 import 'package:telegram_prime/services/local_storage.dart';
 import 'package:telegram_prime/services/navigator_key.dart';
+import 'package:telegram_prime/views/home_view.dart';
 import 'package:telegram_prime/views/onboarding_view.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   // Initialize storage
   await GetStorage.init();
 
   // Dependency injection
   Get.lazyPut(() => HomeController());
+
+  // whenever your initialization is completed, remove the splash screen:
+  FlutterNativeSplash.remove();
 
   runApp(const MyApp());
 }
@@ -47,7 +53,7 @@ class MyApp extends StatelessWidget {
       ),
       navigatorKey: NavigatorKey.navigatorKey,
       home: LocalStorage.getData(isOnboardingDone, KeyType.BOOL)
-          ? Container()
+          ? const HomeView()
           : const OnboardingView(),
     );
   }
