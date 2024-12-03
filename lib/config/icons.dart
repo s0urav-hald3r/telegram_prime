@@ -3,3 +3,7 @@ const String verified = 'assets/icons/verified.svg';
 const String premiumLogo = 'assets/icons/premium_logo.svg';
 const String premiumIcon = 'assets/icons/premiumIcon.svg';
 const String settingIcon = 'assets/icons/settingsIcon.svg';
+const String home = 'assets/icons/home.svg';
+const String channel = 'assets/icons/channel.svg';
+const String bot = 'assets/icons/bot.svg';
+const String chat = 'assets/icons/chat.svg';
