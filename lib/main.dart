@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:telegram_prime/config/colors.dart';
 import 'package:telegram_prime/config/constants.dart';
 import 'package:telegram_prime/controllers/home_controller.dart';
 import 'package:telegram_prime/services/local_storage.dart';
@@ -40,6 +41,13 @@ class MyApp extends StatelessWidget {
         splashColor: Colors.transparent,
         hoverColor: Colors.transparent,
         highlightColor: Colors.transparent,
+        appBarTheme: const AppBarTheme(
+          titleTextStyle: TextStyle(
+            color: whiteColor,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.transparent,
