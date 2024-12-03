@@ -2,14 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:telegram_prime/config/constants.dart';
+import 'package:telegram_prime/controllers/home_controller.dart';
 import 'package:telegram_prime/services/local_storage.dart';
 import 'package:telegram_prime/services/navigator_key.dart';
+import 'package:telegram_prime/views/onboarding_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Initialize storage
   await GetStorage.init();
+
+  // Dependency injection
+  Get.lazyPut(() => HomeController());
+
   runApp(const MyApp());
 }
 
@@ -42,7 +48,7 @@ class MyApp extends StatelessWidget {
       navigatorKey: NavigatorKey.navigatorKey,
       home: LocalStorage.getData(isOnboardingDone, KeyType.BOOL)
           ? Container()
-          : Container(),
+          : const OnboardingView(),
     );
   }
 }
