@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:telegram_prime/config/colors.dart';
 import 'package:telegram_prime/config/extension.dart';
 import 'package:telegram_prime/config/icons.dart';
@@ -17,13 +18,21 @@ class PremiumAppBar extends StatelessWidget {
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         InkWell(
           onTap: () {
-            NavigatorKey.pushAndRemoveUntil(const HomeView());
+            if (Get.previousRoute == '/') {
+              NavigatorKey.pushReplacement(const HomeView());
+            } else {
+              NavigatorKey.pop();
+            }
           },
           child: SvgPicture.asset(closeIcon),
         ),
         InkWell(
           onTap: () {
-            NavigatorKey.pushAndRemoveUntil(const HomeView());
+            if (Get.previousRoute == '/') {
+              NavigatorKey.pushReplacement(const HomeView());
+            } else {
+              NavigatorKey.pop();
+            }
           },
           child: Container(
             width: 60.w,

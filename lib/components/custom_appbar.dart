@@ -4,6 +4,7 @@ import 'package:telegram_prime/config/colors.dart';
 import 'package:telegram_prime/config/extension.dart';
 import 'package:telegram_prime/config/icons.dart';
 import 'package:telegram_prime/services/navigator_key.dart';
+import 'package:telegram_prime/views/premium_view.dart';
 import 'package:telegram_prime/views/settings_view.dart';
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
@@ -33,12 +34,17 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
         ),
         title: const Text('Telegram Prime'),
         actions: [
-          Container(
-            margin: EdgeInsets.only(right: 24.w),
-            width: 24.w,
-            child: SvgPicture.asset(
-              premiumIcon,
-              fit: BoxFit.contain,
+          InkWell(
+            onTap: () {
+              NavigatorKey.push(const PremiumView());
+            },
+            child: Container(
+              margin: EdgeInsets.only(right: 24.w),
+              width: 24.w,
+              child: SvgPicture.asset(
+                premiumIcon,
+                fit: BoxFit.contain,
+              ),
             ),
           ),
         ]);
