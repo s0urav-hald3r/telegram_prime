@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:telegram_prime/config/colors.dart';
 import 'package:telegram_prime/config/extension.dart';
 import 'package:telegram_prime/config/icons.dart';
+import 'package:telegram_prime/controllers/home_controller.dart';
 import 'package:telegram_prime/services/navigator_key.dart';
 import 'package:telegram_prime/views/premium_view.dart';
 import 'package:telegram_prime/views/settings_view.dart';
@@ -20,6 +21,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
         backgroundColor: bgColor,
         leadingWidth: 44.w,
+        centerTitle: true,
         leading: InkWell(
           onTap: () {
             NavigatorKey.push(const SettingsView());
@@ -35,6 +37,21 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
         ),
         title: Text(title),
         actions: [
+          if (HomeController.instance.homeIndex == 0)
+            InkWell(
+              onTap: () {
+                HomeController.instance.controller.reload();
+              },
+              child: Container(
+                margin: EdgeInsets.only(right: 24.w),
+                width: 24.w,
+                child: SvgPicture.asset(
+                  refresh,
+                  fit: BoxFit.contain,
+                  color: primaryColor,
+                ),
+              ),
+            ),
           InkWell(
             onTap: () {
               NavigatorKey.push(const PremiumView());

@@ -23,38 +23,43 @@ class HomeView extends StatelessWidget {
           appBar: CustomAppbar(
               title: [
             'Telegram Prime',
-            '',
-            '',
+            'Telegram Channels',
+            'Telegram Bots',
             'Direct Chat'
           ][controller.homeIndex]),
-          body: [
-            const WebTelegramView(),
-            Container(),
-            Container(),
-            const ChatView()
-          ][controller.homeIndex],
+          body: PageView(
+              controller: controller.pageController,
+              physics: const NeverScrollableScrollPhysics(),
+              children: [
+                const WebTelegramView(),
+                Container(),
+                Container(),
+                const ChatView()
+              ]),
           bottomNavigationBar: Container(
             height: 60 + bottomPadding,
             padding: EdgeInsets.fromLTRB(0, 10, 0, bottomPadding),
             color: faddedBgColor,
-            child: Obx(() {
-              return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    _navItem(0, home, 'Home', () {
-                      controller.homeIndex = 0;
-                    }),
-                    _navItem(1, channel, 'Channel', () {
-                      controller.homeIndex = 1;
-                    }),
-                    _navItem(2, bot, 'Bots', () {
-                      controller.homeIndex = 2;
-                    }),
-                    _navItem(3, chat, 'Chat', () {
-                      controller.homeIndex = 3;
-                    }),
-                  ]);
-            }),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _navItem(0, home, 'Home', () {
+                    controller.homeIndex = 0;
+                    controller.pageController.jumpToPage(0);
+                  }),
+                  _navItem(1, channel, 'Channel', () {
+                    controller.homeIndex = 1;
+                    controller.pageController.jumpToPage(1);
+                  }),
+                  _navItem(2, bot, 'Bots', () {
+                    controller.homeIndex = 2;
+                    controller.pageController.jumpToPage(2);
+                  }),
+                  _navItem(3, chat, 'Chat', () {
+                    controller.homeIndex = 3;
+                    controller.pageController.jumpToPage(3);
+                  }),
+                ]),
           ));
     });
   }

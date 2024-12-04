@@ -15,3 +15,4 @@ const String privacy = 'assets/icons/privacy.svg';
 const String terms = 'assets/icons/terms.svg';
 const String arrowLeft = 'assets/icons/arrowLeft.svg';
 const String search = 'assets/icons/search.svg';
+const String refresh = 'assets/icons/refresh.svg';

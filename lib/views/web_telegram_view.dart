@@ -11,15 +11,15 @@ class WebTelegramView extends StatefulWidget {
   State<WebTelegramView> createState() => _WebTelegramViewState();
 }
 
-class _WebTelegramViewState extends State<WebTelegramView> {
-  late WebViewController controller;
+class _WebTelegramViewState extends State<WebTelegramView>
+    with AutomaticKeepAliveClientMixin<WebTelegramView> {
   final homeController = HomeController.instance;
 
   @override
   void initState() {
     super.initState();
 
-    controller = WebViewController()
+    homeController.controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setBackgroundColor(bgColor)
       ..setNavigationDelegate(
@@ -40,13 +40,20 @@ class _WebTelegramViewState extends State<WebTelegramView> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context); // Required when using AutomaticKeepAliveClientMixin
     return Obx(() {
       if (homeController.loadingWebView) {
         return const Center(
           child: CupertinoActivityIndicator(color: whiteColor),
         );
       }
-      return WebViewWidget(controller: controller);
+      return WebViewWidget(
+        controller: homeController.controller,
+        key: const PageStorageKey('web_telegram_view'),
+      );
     });
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:telegram_prime/country_data.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class HomeController extends GetxController {
   static HomeController get instance => Get.find();
+
+  final pageController = PageController();
+  late WebViewController controller;
 
   @override
   void onInit() {
