@@ -13,3 +13,5 @@ const String rate = 'assets/icons/rate.svg';
 const String share = 'assets/icons/share.svg';
 const String privacy = 'assets/icons/privacy.svg';
 const String terms = 'assets/icons/terms.svg';
+const String arrowLeft = 'assets/icons/arrowLeft.svg';
+const String search = 'assets/icons/search.svg';

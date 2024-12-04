@@ -16,41 +16,47 @@ class HomeView extends StatelessWidget {
     double bottomPadding = MediaQuery.of(context).padding.bottom;
     final controller = HomeController.instance;
 
-    return Scaffold(
-        backgroundColor: bgColor,
-        resizeToAvoidBottomInset: false,
-        appBar: const CustomAppbar(),
-        body: Obx(() {
-          return [
+    return Obx(() {
+      return Scaffold(
+          backgroundColor: bgColor,
+          resizeToAvoidBottomInset: false,
+          appBar: CustomAppbar(
+              title: [
+            'Telegram Prime',
+            '',
+            '',
+            'Direct Chat'
+          ][controller.homeIndex]),
+          body: [
             const WebTelegramView(),
             Container(),
             Container(),
             const ChatView()
-          ][controller.homeIndex];
-        }),
-        bottomNavigationBar: Container(
-          height: 60 + bottomPadding,
-          padding: EdgeInsets.fromLTRB(0, 10, 0, bottomPadding),
-          color: faddedBgColor,
-          child: Obx(() {
-            return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _navItem(0, home, 'Home', () {
-                    controller.homeIndex = 0;
-                  }),
-                  _navItem(1, channel, 'Channel', () {
-                    controller.homeIndex = 1;
-                  }),
-                  _navItem(2, bot, 'Bots', () {
-                    controller.homeIndex = 2;
-                  }),
-                  _navItem(3, chat, 'Chat', () {
-                    controller.homeIndex = 3;
-                  }),
-                ]);
-          }),
-        ));
+          ][controller.homeIndex],
+          bottomNavigationBar: Container(
+            height: 60 + bottomPadding,
+            padding: EdgeInsets.fromLTRB(0, 10, 0, bottomPadding),
+            color: faddedBgColor,
+            child: Obx(() {
+              return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _navItem(0, home, 'Home', () {
+                      controller.homeIndex = 0;
+                    }),
+                    _navItem(1, channel, 'Channel', () {
+                      controller.homeIndex = 1;
+                    }),
+                    _navItem(2, bot, 'Bots', () {
+                      controller.homeIndex = 2;
+                    }),
+                    _navItem(3, chat, 'Chat', () {
+                      controller.homeIndex = 3;
+                    }),
+                  ]);
+            }),
+          ));
+    });
   }
 
   Widget _navItem(int index, String icon, String title, Function callBack) {

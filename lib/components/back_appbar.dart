@@ -5,11 +5,10 @@ import 'package:telegram_prime/config/extension.dart';
 import 'package:telegram_prime/config/icons.dart';
 import 'package:telegram_prime/services/navigator_key.dart';
 import 'package:telegram_prime/views/premium_view.dart';
-import 'package:telegram_prime/views/settings_view.dart';
 
-class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
+class BackAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  const CustomAppbar({super.key, required this.title});
+  const BackAppbar({super.key, required this.title});
 
   @override
   Size get preferredSize =>
@@ -22,13 +21,13 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
         leadingWidth: 44.w,
         leading: InkWell(
           onTap: () {
-            NavigatorKey.push(const SettingsView());
+            NavigatorKey.pop();
           },
           child: Container(
             margin: EdgeInsets.only(left: 24.w),
             width: 20.w,
             child: SvgPicture.asset(
-              settingIcon,
+              arrowLeft,
               fit: BoxFit.contain,
             ),
           ),

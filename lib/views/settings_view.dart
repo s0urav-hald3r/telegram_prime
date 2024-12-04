@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:telegram_prime/components/action_button.dart';
+import 'package:telegram_prime/components/back_appbar.dart';
 import 'package:telegram_prime/config/colors.dart';
 import 'package:telegram_prime/config/extension.dart';
 import 'package:telegram_prime/config/icons.dart';
@@ -11,20 +12,7 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          backgroundColor: bgColor,
-          iconTheme: const IconThemeData(color: whiteColor),
-          title: const Text('Settings'),
-          actions: [
-            Container(
-              margin: EdgeInsets.only(right: 24.w),
-              width: 24.w,
-              child: SvgPicture.asset(
-                premiumIcon,
-                fit: BoxFit.contain,
-              ),
-            ),
-          ]),
+      appBar: const BackAppbar(title: 'Settings'),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,

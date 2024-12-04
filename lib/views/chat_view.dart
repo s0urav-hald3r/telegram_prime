@@ -5,6 +5,8 @@ import 'package:telegram_prime/config/colors.dart';
 import 'package:telegram_prime/config/extension.dart';
 import 'package:telegram_prime/config/icons.dart';
 import 'package:telegram_prime/controllers/home_controller.dart';
+import 'package:telegram_prime/services/navigator_key.dart';
+import 'package:telegram_prime/views/select_country_view.dart';
 
 class ChatView extends StatelessWidget {
   const ChatView({super.key});
@@ -63,7 +65,9 @@ class ChatView extends StatelessWidget {
             ),
             prefix: GestureDetector(
               behavior: HitTestBehavior.opaque,
-              onTap: () {},
+              onTap: () {
+                NavigatorKey.push(const SelectCountryView());
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: const Text(
