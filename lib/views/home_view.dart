@@ -5,6 +5,7 @@ import 'package:telegram_prime/components/custom_appbar.dart';
 import 'package:telegram_prime/config/colors.dart';
 import 'package:telegram_prime/config/icons.dart';
 import 'package:telegram_prime/controllers/home_controller.dart';
+import 'package:telegram_prime/views/chat_view.dart';
 import 'package:telegram_prime/views/web_telegram_view.dart';
 
 class HomeView extends StatelessWidget {
@@ -17,13 +18,14 @@ class HomeView extends StatelessWidget {
 
     return Scaffold(
         backgroundColor: bgColor,
+        resizeToAvoidBottomInset: false,
         appBar: const CustomAppbar(),
         body: Obx(() {
           return [
             const WebTelegramView(),
             Container(),
             Container(),
-            Container(),
+            const ChatView()
           ][controller.homeIndex];
         }),
         bottomNavigationBar: Container(

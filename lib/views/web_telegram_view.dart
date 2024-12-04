@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:telegram_prime/config/colors.dart';
 import 'package:telegram_prime/controllers/home_controller.dart';
