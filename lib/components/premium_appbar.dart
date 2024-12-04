@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:telegram_prime/config/colors.dart';
 import 'package:telegram_prime/config/extension.dart';
 import 'package:telegram_prime/config/icons.dart';
@@ -18,7 +17,7 @@ class PremiumAppBar extends StatelessWidget {
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         InkWell(
           onTap: () {
-            if (Get.previousRoute == '/') {
+            if (NavigatorKey.currentRoute == '/onboardingToPremium') {
               NavigatorKey.pushReplacement(const HomeView());
             } else {
               NavigatorKey.pop();
@@ -28,7 +27,7 @@ class PremiumAppBar extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            if (Get.previousRoute == '/') {
+            if (NavigatorKey.currentRoute == '/onboardingToPremium') {
               NavigatorKey.pushReplacement(const HomeView());
             } else {
               NavigatorKey.pop();

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:page_transition/page_transition.dart';
 
 class NavigatorKey {
@@ -6,7 +7,13 @@ class NavigatorKey {
 
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-  static Future<dynamic>? push(dynamic route) {
+  static String? previousRoute;
+  static String? currentRoute;
+
+  static Future<dynamic>? push(dynamic route, {String? routeName}) {
+    previousRoute = Get.currentRoute; // Update GetX's previousRoute
+    currentRoute = routeName; // Update GetX's currentRoute
+
     return navigatorKey.currentState?.push(PageTransition(
       child: route,
       type: PageTransitionType.fade,
@@ -14,7 +21,10 @@ class NavigatorKey {
     ));
   }
 
-  static Future<dynamic>? pushReplacement(dynamic route) {
+  static Future<dynamic>? pushReplacement(dynamic route, {String? routeName}) {
+    previousRoute = Get.currentRoute; // Update GetX's previousRoute
+    currentRoute = routeName; // Update GetX's currentRoute
+
     return navigatorKey.currentState?.pushReplacement(PageTransition(
       child: route,
       type: PageTransitionType.fade,
@@ -22,7 +32,11 @@ class NavigatorKey {
     ));
   }
 
-  static Future<dynamic>? pushAndRemoveUntil(dynamic route) {
+  static Future<dynamic>? pushAndRemoveUntil(dynamic route,
+      {String? routeName}) {
+    previousRoute = Get.currentRoute; // Update GetX's previousRoute
+    currentRoute = routeName; // Update GetX's currentRoute
+
     return navigatorKey.currentState?.pushAndRemoveUntil(
         PageTransition(
           child: route,
@@ -37,6 +51,7 @@ class NavigatorKey {
   }
 
   static void pop() {
+    currentRoute = previousRoute;
     return navigatorKey.currentState?.pop();
   }
 }

@@ -164,7 +164,8 @@ class _OnboardingViewState extends State<OnboardingView> {
                       pageController.next();
                     } else {
                       LocalStorage.addData(isOnboardingDone, true);
-                      NavigatorKey.pushReplacement(const PremiumView());
+                      NavigatorKey.pushReplacement(const PremiumView(),
+                          routeName: '/onboardingToPremium');
                     }
                   },
                 ),
