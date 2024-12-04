@@ -29,7 +29,7 @@ class HomeView extends StatelessWidget {
         bottomNavigationBar: Container(
           height: 60 + bottomPadding,
           padding: EdgeInsets.fromLTRB(0, 10, 0, bottomPadding),
-          color: bgColor,
+          color: faddedBgColor,
           child: Obx(() {
             return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,

@@ -76,7 +76,7 @@ class SettingsView extends StatelessWidget {
             margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: const Color(0xFF353F54),
+              color: faddedBgColor,
             ),
             child: ElevatedButton(
               child: Center(
