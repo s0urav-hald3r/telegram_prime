@@ -45,7 +45,7 @@ class _SelectCountryViewState extends State<SelectCountryView> {
       body: Column(children: [
         Container(
           height: 45.h,
-          margin: EdgeInsets.symmetric(horizontal: 20.w),
+          margin: EdgeInsets.symmetric(horizontal: 16.w),
           child: CupertinoTextField(
             onChanged: _filterList,
             decoration: BoxDecoration(

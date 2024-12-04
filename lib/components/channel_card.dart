@@ -3,7 +3,8 @@ import 'package:telegram_prime/config/colors.dart';
 import 'package:telegram_prime/config/extension.dart';
 
 class ChannelCard extends StatelessWidget {
-  const ChannelCard({super.key});
+  final bool isPro;
+  const ChannelCard({super.key, required this.isPro});
 
   @override
   Widget build(BuildContext context) {
@@ -21,20 +22,28 @@ class ChannelCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const CircleAvatar(radius: 20),
+                  Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: bgColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
                   Container(
                     decoration: BoxDecoration(
-                      color: primaryColor.withOpacity(.5),
+                      color:
+                          isPro ? primaryColor : primaryColor.withOpacity(.15),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     padding:
                         EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.w),
-                    child: const Text(
-                      'Free',
+                    child: Text(
+                      isPro ? 'Paid' : 'Free',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 10,
-                        color: primaryColor,
+                        color: isPro ? whiteColor : primaryColor,
                       ),
                     ),
                   ),

@@ -5,6 +5,8 @@ import 'package:telegram_prime/components/channel_card.dart';
 import 'package:telegram_prime/config/colors.dart';
 import 'package:telegram_prime/config/extension.dart';
 import 'package:telegram_prime/config/icons.dart';
+import 'package:telegram_prime/services/navigator_key.dart';
+import 'package:telegram_prime/views/channel_list_view.dart';
 
 class ChannelView extends StatelessWidget {
   const ChannelView({super.key});
@@ -17,7 +19,7 @@ class ChannelView extends StatelessWidget {
       child: Column(children: [
         Container(
           height: 45.h,
-          margin: EdgeInsets.symmetric(horizontal: 20.w),
+          margin: EdgeInsets.symmetric(horizontal: 16.w),
           child: CupertinoTextField(
             decoration: BoxDecoration(
               color: faddedBgColor,
@@ -57,14 +59,12 @@ class ChannelView extends StatelessWidget {
               itemBuilder: (context, index) {
                 return InkWell(
                     onTap: () {
-                      // showAdaptiveDialog(
-                      //     context: context,
-                      //     barrierDismissible: false,
-                      //     builder: (context) {
-                      //       return const ChannelDetails();
-                      //     });
+                      if (index % 3 == 0) {
+                      } else {
+                        NavigatorKey.push(const ChannelListView());
+                      }
                     },
-                    child: const ChannelCard());
+                    child: ChannelCard(isPro: index % 3 == 0));
               }),
         )
       ]),
