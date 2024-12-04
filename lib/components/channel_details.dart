@@ -7,8 +7,8 @@ import 'package:telegram_prime/config/extension.dart';
 import 'package:telegram_prime/config/icons.dart';
 import 'package:telegram_prime/services/navigator_key.dart';
 
-class BotDetails extends StatelessWidget {
-  const BotDetails({super.key});
+class ChannelDetails extends StatelessWidget {
+  const ChannelDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,17 +42,30 @@ class BotDetails extends StatelessWidget {
                 ]),
             SizedBox(height: 8.h),
             const Text(
-              'WebSeries & TVSeries Downloader Bot | One stop for all Webseries Content',
+              'Vevo',
               textAlign: TextAlign.center,
               style: TextStyle(
-                  fontWeight: FontWeight.w600, fontSize: 18, color: whiteColor),
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+                color: whiteColor,
+              ),
             ),
             SizedBox(height: 8.h),
             const Text(
-              'Bot /Videos & Movies',
+              'Channel/Music',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+                color: Color(0xFFA7ABB1),
+              ),
+            ),
+            SizedBox(height: 8.h),
+            const Text(
+              '3.0K',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
                 fontSize: 14,
                 color: Color(0xFFA7ABB1),
               ),
@@ -96,7 +109,7 @@ class BotDetails extends StatelessWidget {
                 child: ElevatedButton(
                   child: const Center(
                     child: Text(
-                      'Visit Bot',
+                      'Visit Channel',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,

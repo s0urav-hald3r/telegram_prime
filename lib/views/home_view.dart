@@ -6,6 +6,7 @@ import 'package:telegram_prime/config/colors.dart';
 import 'package:telegram_prime/config/icons.dart';
 import 'package:telegram_prime/controllers/home_controller.dart';
 import 'package:telegram_prime/views/bot_view.dart';
+import 'package:telegram_prime/views/channel_view.dart';
 import 'package:telegram_prime/views/chat_view.dart';
 import 'package:telegram_prime/views/web_telegram_view.dart';
 
@@ -31,11 +32,11 @@ class HomeView extends StatelessWidget {
           body: PageView(
               controller: controller.pageController,
               physics: const NeverScrollableScrollPhysics(),
-              children: [
-                const WebTelegramView(),
-                Container(),
-                const BotView(),
-                const ChatView()
+              children: const [
+                WebTelegramView(),
+                ChannelView(),
+                BotView(),
+                ChatView()
               ]),
           bottomNavigationBar: Container(
             height: 60 + bottomPadding,
