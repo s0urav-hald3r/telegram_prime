@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:telegram_prime/config/colors.dart';
 import 'package:telegram_prime/config/extension.dart';
 import 'package:telegram_prime/config/icons.dart';
@@ -68,17 +69,19 @@ class ChatView extends StatelessWidget {
               onTap: () {
                 NavigatorKey.push(const SelectCountryView());
               },
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: const Text(
-                  '+62 ▾',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    color: whiteColor,
+              child: Obx(() {
+                return Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: Text(
+                    '${controller.selectedCountry.split('_')[0]} ${controller.selectedCountry.split('_')[2]} ▾',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: whiteColor,
+                    ),
                   ),
-                ),
-              ),
+                );
+              }),
             ),
           ),
         ),
