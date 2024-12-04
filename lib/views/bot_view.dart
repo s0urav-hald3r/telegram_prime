@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:telegram_prime/components/bot_card.dart';
+import 'package:telegram_prime/components/bot_details.dart';
 import 'package:telegram_prime/config/colors.dart';
 import 'package:telegram_prime/config/extension.dart';
 import 'package:telegram_prime/config/icons.dart';
@@ -54,7 +56,16 @@ class BotView extends StatelessWidget {
               padding:
                   EdgeInsets.symmetric(horizontal: 16.w), // Number of items
               itemBuilder: (context, index) {
-                return const BotCard();
+                return InkWell(
+                    onTap: () {
+                      showAdaptiveDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (context) {
+                            return const BotDetails();
+                          });
+                    },
+                    child: const BotCard());
               }),
         )
       ]),
