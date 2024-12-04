@@ -20,8 +20,6 @@ class HomeController extends GetxController {
   final nameController = TextEditingController();
   final messageController = TextEditingController();
 
-  final searchController = TextEditingController();
-
   // Private variables
   final RxInt _homeIndex = 0.obs;
   final RxInt _onboardingIndex = 0.obs;

@@ -47,7 +47,6 @@ class _SelectCountryViewState extends State<SelectCountryView> {
           height: 45.h,
           margin: EdgeInsets.symmetric(horizontal: 20.w),
           child: CupertinoTextField(
-            controller: controller.searchController,
             onChanged: _filterList,
             decoration: BoxDecoration(
               color: faddedBgColor,
