@@ -18,3 +18,4 @@ const String search = 'assets/icons/search.svg';
 const String refresh = 'assets/icons/refresh.svg';
 const String cross = 'assets/icons/cross.svg';
 const String shareBot = 'assets/icons/shareBot.svg';
+const String upgradePremium = 'assets/icons/upgradePremium.svg';

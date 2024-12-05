@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:telegram_prime/components/channel_card.dart';
+import 'package:telegram_prime/components/upgrade_premium.dart';
 import 'package:telegram_prime/config/colors.dart';
 import 'package:telegram_prime/config/extension.dart';
 import 'package:telegram_prime/config/icons.dart';
@@ -60,6 +61,12 @@ class ChannelView extends StatelessWidget {
                 return InkWell(
                     onTap: () {
                       if (index % 3 == 0) {
+                        showAdaptiveDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (context) {
+                              return const UpgradePremium();
+                            });
                       } else {
                         NavigatorKey.push(const ChannelListView());
                       }
