@@ -1,4 +1,4 @@
-package com.example.telegram_prime
+package com.tttoolsfortelemessenger.app
 
 import io.flutter.embedding.android.FlutterActivity
 
