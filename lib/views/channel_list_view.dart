@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:telegram_prime/components/back_appbar.dart';
 import 'package:telegram_prime/components/channel_details.dart';
 import 'package:telegram_prime/components/channel_list_card.dart';
-import 'package:telegram_prime/components/custom_appbar.dart';
 import 'package:telegram_prime/config/colors.dart';
 import 'package:telegram_prime/config/extension.dart';
 import 'package:telegram_prime/config/icons.dart';
@@ -14,7 +14,7 @@ class ChannelListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppbar(title: 'Music'),
+      appBar: const BackAppbar(title: 'Music'),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
