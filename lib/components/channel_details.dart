@@ -8,6 +8,7 @@ import 'package:telegram_prime/config/extension.dart';
 import 'package:telegram_prime/config/icons.dart';
 import 'package:telegram_prime/models/channel_model.dart';
 import 'package:telegram_prime/services/navigator_key.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ChannelDetails extends StatelessWidget {
   final ChannelModel channel;
@@ -131,7 +132,17 @@ class ChannelDetails extends StatelessWidget {
                       ),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () async {
+                    final url =
+                        Uri.parse('https://t.me/${channel.uName ?? ''}');
+                    try {
+                      if (!await launchUrl(url)) {
+                        throw Exception('Could not launch $url');
+                      }
+                    } catch (e) {
+                      debugPrint('error while url launch: $e');
+                    }
+                  },
                 ),
               ),
             ])
