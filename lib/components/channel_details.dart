@@ -1,14 +1,17 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:telegram_prime/config/colors.dart';
 import 'package:telegram_prime/config/extension.dart';
 import 'package:telegram_prime/config/icons.dart';
+import 'package:telegram_prime/models/channel_model.dart';
 import 'package:telegram_prime/services/navigator_key.dart';
 
 class ChannelDetails extends StatelessWidget {
-  const ChannelDetails({super.key});
+  final ChannelModel channel;
+  const ChannelDetails({super.key, required this.channel});
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +29,15 @@ class ChannelDetails extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const SizedBox(width: 24),
-                  const CircleAvatar(
-                    radius: 36,
+                  Container(
+                    width: 72,
+                    height: 72,
+                    decoration: const BoxDecoration(
+                      color: bgColor,
+                      shape: BoxShape.circle,
+                    ),
+                    clipBehavior: Clip.antiAlias,
+                    child: CachedNetworkImage(imageUrl: channel.image ?? ''),
                   ),
                   InkWell(
                     onTap: () {
@@ -41,35 +51,39 @@ class ChannelDetails extends StatelessWidget {
                   ),
                 ]),
             SizedBox(height: 8.h),
-            const Text(
-              'Vevo',
+            Text(
+              channel.tName ?? 'NA',
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 18,
                 color: whiteColor,
               ),
             ),
+            // SizedBox(height: 8.h),
+            // const Text(
+            //   'Channel/Music',
+            //   textAlign: TextAlign.center,
+            //   style: TextStyle(
+            //     fontWeight: FontWeight.w400,
+            //     fontSize: 14,
+            //     color: Color(0xFFA7ABB1),
+            //   ),
+            // ),
             SizedBox(height: 8.h),
-            const Text(
-              'Channel/Music',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 14,
-                color: Color(0xFFA7ABB1),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              SvgPicture.asset(userCount),
+              SizedBox(width: 4.w),
+              Text(
+                '${((channel.s ?? 0) / 1000).toStringAsFixed(1)}k',
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14,
+                  color: Color(0xFFA7ABB1),
+                ),
               ),
-            ),
-            SizedBox(height: 8.h),
-            const Text(
-              '3.0K',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 14,
-                color: Color(0xFFA7ABB1),
-              ),
-            ),
+            ]),
             SizedBox(height: 20.h),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               Container(

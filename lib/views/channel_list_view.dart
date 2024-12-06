@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:telegram_prime/components/back_appbar.dart';
-import 'package:telegram_prime/components/channel_details.dart';
 import 'package:telegram_prime/components/channel_list_card.dart';
 import 'package:telegram_prime/config/colors.dart';
 import 'package:telegram_prime/config/extension.dart';
@@ -51,16 +50,7 @@ class ChannelListView extends StatelessWidget {
             child: ListView.builder(
                 itemCount: 9,
                 itemBuilder: (context, index) {
-                  return InkWell(
-                      onTap: () {
-                        showAdaptiveDialog(
-                            context: context,
-                            barrierDismissible: false,
-                            builder: (context) {
-                              return const ChannelDetails();
-                            });
-                      },
-                      child: const ChannelListCard());
+                  return const ChannelListCard();
                 }),
           )
         ]),

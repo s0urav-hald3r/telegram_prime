@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:telegram_prime/components/channel_card.dart';
+import 'package:telegram_prime/components/channel_details.dart';
 import 'package:telegram_prime/config/colors.dart';
 import 'package:telegram_prime/config/extension.dart';
 import 'package:telegram_prime/config/icons.dart';
@@ -35,7 +36,7 @@ class _ChannelViewState extends State<ChannelView> {
   Future<void> _loadMore() async {
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
-      controller.offset = controller.offset++;
+      controller.offset = ++controller.offset;
       controller.getChannels(loadMore: true);
     }
   }
@@ -94,22 +95,18 @@ class _ChannelViewState extends State<ChannelView> {
                       padding: EdgeInsets.symmetric(
                           horizontal: 16.w), // Number of items
                       itemBuilder: (context, index) {
-                        print(controller.channels[index]);
+                        final channel = controller.channels[index];
+
                         return InkWell(
                           onTap: () {
-                            // if (index % 3 == 0) {
-                            //   showAdaptiveDialog(
-                            //       context: context,
-                            //       barrierDismissible: false,
-                            //       builder: (context) {
-                            //         return const UpgradePremium();
-                            //       });
-                            // } else {
-                            //   NavigatorKey.push(const ChannelListView());
-                            // }
+                            showAdaptiveDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (context) {
+                                  return ChannelDetails(channel: channel);
+                                });
                           },
-                          child:
-                              ChannelCard(channel: controller.channels[index]),
+                          child: ChannelCard(channel: channel),
                         );
                       }),
                 ),
