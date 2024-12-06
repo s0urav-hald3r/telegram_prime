@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:telegram_prime/config/colors.dart';
 import 'package:telegram_prime/config/extension.dart';
 import 'package:telegram_prime/config/icons.dart';
@@ -111,7 +112,10 @@ class ChannelDetails extends StatelessWidget {
                           ),
                         ]),
                   ),
-                  onPressed: () {},
+                  onPressed: () async {
+                    await Share.share(
+                        'Please check out this channel:\nhttps://t.me/${channel.uName ?? ''}');
+                  },
                 ),
               ),
               Container(
