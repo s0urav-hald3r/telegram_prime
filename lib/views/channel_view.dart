@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -20,6 +22,9 @@ class _ChannelViewState extends State<ChannelView> {
   final ScrollController _scrollController = ScrollController();
   final controller = HomeController.instance;
 
+  // Declare a debounce timer
+  Timer? _debounce;
+
   @override
   void initState() {
     super.initState();
@@ -36,8 +41,13 @@ class _ChannelViewState extends State<ChannelView> {
   Future<void> _loadMore() async {
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
-      controller.offset = ++controller.offset;
-      controller.getChannels(loadMore: true);
+      if (controller.isQuery) {
+        controller.searchOffset = ++controller.searchOffset;
+        controller.getSearchChannels(loadMore: true);
+      } else {
+        controller.offset = ++controller.offset;
+        controller.getChannels(loadMore: true);
+      }
     }
   }
 
@@ -52,6 +62,21 @@ class _ChannelViewState extends State<ChannelView> {
             height: 45.h,
             margin: EdgeInsets.symmetric(horizontal: 16.w),
             child: CupertinoTextField(
+              controller: controller.channelSearch,
+              // Inside your widget
+              onChanged: (value) {
+                controller.isQuery = value.isNotEmpty;
+
+                // Cancel the previous timer if it exists
+                if (_debounce?.isActive ?? false) _debounce!.cancel();
+
+                // Set up a new timer
+                _debounce = Timer(const Duration(milliseconds: 300), () {
+                  if (controller.isQuery) {
+                    controller.getSearchChannels();
+                  }
+                });
+              },
               decoration: BoxDecoration(
                 color: faddedBgColor,
                 borderRadius: BorderRadius.circular(15),
@@ -76,7 +101,7 @@ class _ChannelViewState extends State<ChannelView> {
             ),
           ),
           SizedBox(height: 20.h),
-          controller.isLoading
+          controller.isLoading || controller.isSearching
               ? const Expanded(
                   child: Center(
                     child: CupertinoActivityIndicator(color: whiteColor),
@@ -91,11 +116,15 @@ class _ChannelViewState extends State<ChannelView> {
                         mainAxisSpacing: 10.h, // Vertical spacing
                         childAspectRatio: 1.6, // Aspect ratio of each item
                       ),
-                      itemCount: controller.channels.length,
+                      itemCount: controller.isQuery
+                          ? controller.searchChannels.length
+                          : controller.channels.length,
                       padding: EdgeInsets.symmetric(
                           horizontal: 16.w), // Number of items
                       itemBuilder: (context, index) {
-                        final channel = controller.channels[index];
+                        final channel = controller.isQuery
+                            ? controller.searchChannels[index]
+                            : controller.channels[index];
 
                         return InkWell(
                           onTap: () {
@@ -110,7 +139,7 @@ class _ChannelViewState extends State<ChannelView> {
                         );
                       }),
                 ),
-          if (controller.isLoadingMore)
+          if (controller.isLoadingMore || controller.isSearchingMore)
             const Padding(
               padding: EdgeInsets.all(16.0),
               child: CupertinoActivityIndicator(color: whiteColor),
