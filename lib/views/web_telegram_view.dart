@@ -28,14 +28,36 @@ class _WebTelegramViewState extends State<WebTelegramView>
             homeController.loadingWebView = progress != 100;
           },
           onPageStarted: (String url) {},
-          onPageFinished: (String url) {},
+          onPageFinished: (String url) {
+            if (url.contains('web.telegram.org')) {
+              // homeController.controller.runJavaScript("""
+              //   function waitForElement(selector, callback) {
+              //     const interval = setInterval(() => {
+              //       const element = document.querySelector(selector);
+              //       if (element) {
+              //         clearInterval(interval);
+              //         callback(element);
+              //       }
+              //     }, 0); // Check every 100ms
+              //   }
+
+              //   waitForElement('.ripple-container', (element) => {
+              //     const event = new MouseEvent('click', { bubbles: true, cancelable: true });
+              //     element.dispatchEvent(event);
+              //   });
+              // """);
+            }
+          },
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
             return NavigationDecision.navigate;
           },
         ),
       )
-      ..loadRequest(Uri.parse('https://web.telegram.org/'));
+      ..setUserAgent(
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+      )
+      ..loadRequest(Uri.parse('https://web.telegram.org/a'));
   }
 
   @override
