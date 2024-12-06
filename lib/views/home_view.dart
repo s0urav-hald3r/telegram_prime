@@ -58,6 +58,9 @@ class HomeView extends StatelessWidget {
                     controller.pageController.jumpToPage(2);
                   }),
                   _navItem(3, chat, 'Chat', () {
+                    controller.numberController.clear();
+                    controller.nameController.clear();
+                    controller.messageController.clear();
                     controller.homeIndex = 3;
                     controller.pageController.jumpToPage(3);
                   }),

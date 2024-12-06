@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:telegram_prime/country_data.dart';
 import 'package:telegram_prime/models/channel_model.dart';
 import 'package:telegram_prime/services/dio_client.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class HomeController extends GetxController {
@@ -109,6 +110,24 @@ class HomeController extends GetxController {
       loadMore ? isSearchingMore = false : isSearching = false;
       debugPrint('error: $e');
       debugPrint('err-stack: $stack');
+    }
+  }
+
+  Future<void> sendMessage() async {
+    Uri url;
+    if (numberController.text.isNotEmpty) {
+      url = Uri.parse(
+          'https://t.me/${selectedCountry.split('_')[2]}${numberController.text}?text=${messageController.text}');
+    } else {
+      url = Uri.parse(
+          'https://t.me/${nameController.text}?text=${messageController.text}');
+    }
+    try {
+      if (!await launchUrl(url)) {
+        throw Exception('Could not launch $url');
+      }
+    } catch (e) {
+      debugPrint('error while url launch: $e');
     }
   }
 }

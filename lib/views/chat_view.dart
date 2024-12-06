@@ -151,7 +151,9 @@ class ChatView extends StatelessWidget {
                 color: whiteColor,
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              controller.sendMessage();
+            },
           ),
         ),
       ]),
