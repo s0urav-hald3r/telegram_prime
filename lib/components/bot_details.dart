@@ -1,14 +1,19 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:telegram_prime/config/colors.dart';
 import 'package:telegram_prime/config/extension.dart';
 import 'package:telegram_prime/config/icons.dart';
+import 'package:telegram_prime/models/bot_model.dart';
 import 'package:telegram_prime/services/navigator_key.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BotDetails extends StatelessWidget {
-  const BotDetails({super.key});
+  final BotModel botModel;
+  const BotDetails({super.key, required this.botModel});
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +31,18 @@ class BotDetails extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const SizedBox(width: 24),
-                  const CircleAvatar(
-                    radius: 36,
+                  Container(
+                    width: 72,
+                    height: 72,
+                    decoration: const BoxDecoration(
+                      color: bgColor,
+                      shape: BoxShape.circle,
+                    ),
+                    clipBehavior: Clip.antiAlias,
+                    child: CachedNetworkImage(
+                      imageUrl: botModel.image ?? '',
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   InkWell(
                     onTap: () {
@@ -41,17 +56,17 @@ class BotDetails extends StatelessWidget {
                   ),
                 ]),
             SizedBox(height: 8.h),
-            const Text(
-              'WebSeries & TVSeries Downloader Bot | One stop for all Webseries Content',
+            Text(
+              botModel.displayName ?? 'NA',
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                   fontWeight: FontWeight.w600, fontSize: 18, color: whiteColor),
             ),
             SizedBox(height: 8.h),
-            const Text(
-              'Bot /Videos & Movies',
+            Text(
+              botModel.userName ?? 'NA',
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 14,
                 color: Color(0xFFA7ABB1),
@@ -83,7 +98,10 @@ class BotDetails extends StatelessWidget {
                           ),
                         ]),
                   ),
-                  onPressed: () {},
+                  onPressed: () async {
+                    await Share.share(
+                        'Please check out this amazing Bot:\nhttps://t.me/${botModel.userName ?? ''}');
+                  },
                 ),
               ),
               Container(
@@ -104,7 +122,17 @@ class BotDetails extends StatelessWidget {
                       ),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () async {
+                    final url =
+                        Uri.parse('https://t.me/${botModel.userName ?? ''}');
+                    try {
+                      if (!await launchUrl(url)) {
+                        throw Exception('Could not launch $url');
+                      }
+                    } catch (e) {
+                      debugPrint('error while url launch: $e');
+                    }
+                  },
                 ),
               ),
             ])

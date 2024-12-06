@@ -97,16 +97,18 @@ class _BotViewState extends State<BotView> {
                       padding: EdgeInsets.symmetric(
                           horizontal: 16.w), // Number of items
                       itemBuilder: (context, index) {
+                        final bot = controller.bots[index];
+
                         return InkWell(
                             onTap: () {
                               showAdaptiveDialog(
                                   context: context,
                                   barrierDismissible: false,
                                   builder: (context) {
-                                    return const BotDetails();
+                                    return BotDetails(botModel: bot);
                                   });
                             },
-                            child: const BotCard());
+                            child: BotCard(botModel: bot));
                       }),
                 );
         }),
