@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:telegram_prime/config/constants.dart';
 import 'package:telegram_prime/country_data.dart';
+import 'package:telegram_prime/models/bot_model.dart';
 import 'package:telegram_prime/models/channel_model.dart';
 import 'package:telegram_prime/services/dio_client.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -36,12 +37,14 @@ class HomeController extends GetxController {
   final RxBool _loadingWebView = true.obs;
   final RxBool _isQuery = false.obs;
   final RxBool _isLoading = true.obs;
+  final RxBool _isLoadingBots = true.obs;
   final RxBool _isLoadingMore = false.obs;
   final RxBool _isSearching = false.obs;
   final RxBool _isSearchingMore = false.obs;
   final RxString _selectedCountry = ''.obs;
   final RxList<ChannelModel> _channels = <ChannelModel>[].obs;
   final RxList<ChannelModel> _searchChannels = <ChannelModel>[].obs;
+  final RxList<BotModel> _bots = <BotModel>[].obs;
 
   // Getters
   int get homeIndex => _homeIndex.value;
@@ -51,12 +54,14 @@ class HomeController extends GetxController {
   bool get loadingWebView => _loadingWebView.value;
   bool get isQuery => _isQuery.value;
   bool get isLoading => _isLoading.value;
+  bool get isLoadingBots => _isLoadingBots.value;
   bool get isLoadingMore => _isLoadingMore.value;
   bool get isSearching => _isSearching.value;
   bool get isSearchingMore => _isSearchingMore.value;
   String get selectedCountry => _selectedCountry.value;
   List<ChannelModel> get channels => _channels;
   List<ChannelModel> get searchChannels => _searchChannels;
+  List<BotModel> get bots => _bots;
 
   // Setters
   set homeIndex(value) => _homeIndex.value = value;
@@ -66,12 +71,14 @@ class HomeController extends GetxController {
   set loadingWebView(bool status) => _loadingWebView.value = status;
   set isQuery(bool status) => _isQuery.value = status;
   set isLoading(value) => _isLoading.value = value;
+  set isLoadingBots(value) => _isLoadingBots.value = value;
   set isLoadingMore(value) => _isLoadingMore.value = value;
   set isSearching(value) => _isSearching.value = value;
   set isSearchingMore(value) => _isSearchingMore.value = value;
   set selectedCountry(value) => _selectedCountry.value = value;
   set channels(value) => _channels.value = value;
   set searchChannels(value) => _searchChannels.value = value;
+  set bots(value) => _bots.value = value;
 
   // APIs
   Future<void> getChannels({bool loadMore = false}) async {
@@ -109,6 +116,25 @@ class HomeController extends GetxController {
       loadMore ? searchChannels.addAll(temp) : searchChannels = temp;
     } catch (e, stack) {
       loadMore ? isSearchingMore = false : isSearching = false;
+      debugPrint('error: $e');
+      debugPrint('err-stack: $stack');
+    }
+  }
+
+  Future<void> getBots() async {
+    isLoadingBots = true;
+    try {
+      final temp = <BotModel>[];
+      final response = await dio.get('${botUrl}bots');
+
+      for (var item in response.data['data']) {
+        temp.add(BotModel.fromJson(item));
+      }
+
+      isLoadingBots = false;
+      bots.addAll(temp);
+    } catch (e, stack) {
+      isLoadingBots = false;
       debugPrint('error: $e');
       debugPrint('err-stack: $stack');
     }
