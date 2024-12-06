@@ -1,10 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:telegram_prime/config/colors.dart';
 import 'package:telegram_prime/config/extension.dart';
+import 'package:telegram_prime/models/channel_model.dart';
 
 class ChannelCard extends StatelessWidget {
-  final bool isPro;
-  const ChannelCard({super.key, required this.isPro});
+  final ChannelModel channel;
+  const ChannelCard({super.key, required this.channel});
 
   @override
   Widget build(BuildContext context) {
@@ -29,30 +31,31 @@ class ChannelCard extends StatelessWidget {
                       color: bgColor,
                       borderRadius: BorderRadius.circular(10),
                     ),
+                    clipBehavior: Clip.antiAlias,
+                    child: CachedNetworkImage(imageUrl: channel.image ?? ''),
                   ),
                   Container(
                     decoration: BoxDecoration(
-                      color:
-                          isPro ? primaryColor : primaryColor.withOpacity(.15),
+                      color: primaryColor.withOpacity(.15),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     padding:
                         EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.w),
-                    child: Text(
-                      isPro ? 'Paid' : 'Free',
+                    child: const Text(
+                      'Free',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 10,
-                        color: isPro ? whiteColor : primaryColor,
+                        color: primaryColor,
                       ),
                     ),
                   ),
                 ]),
-            const Text(
-              'Netflix',
+            Text(
+              channel.tName ?? 'NA',
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 15,
                 color: whiteColor,
