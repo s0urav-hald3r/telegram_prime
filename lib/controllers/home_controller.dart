@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:telegram_prime/config/constants.dart';
 import 'package:telegram_prime/country_data.dart';
 import 'package:telegram_prime/models/channel_model.dart';
 import 'package:telegram_prime/services/dio_client.dart';
@@ -77,8 +78,8 @@ class HomeController extends GetxController {
     loadMore ? isLoadingMore = true : isLoading = true;
     try {
       final temp = <ChannelModel>[];
-      final response =
-          await dio.get('chart/all?limit=20&offset=${20 * offset}');
+      final response = await dio
+          .get('${channelUrl}chart/all?limit=20&offset=${20 * offset}');
 
       for (var item in response.data) {
         temp.add(ChannelModel.fromJson(item));
@@ -98,7 +99,7 @@ class HomeController extends GetxController {
     try {
       final temp = <ChannelModel>[];
       final response = await dio.get(
-          'chart/all?limit=20&offset=${20 * searchOffset}&q=${channelSearch.text.trim()}');
+          '${channelUrl}chart/all?limit=20&offset=${20 * searchOffset}&q=${channelSearch.text.trim()}');
 
       for (var item in response.data) {
         temp.add(ChannelModel.fromJson(item));
