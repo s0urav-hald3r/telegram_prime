@@ -5,6 +5,8 @@ import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:telegram_prime/config/colors.dart';
 import 'package:telegram_prime/config/constants.dart';
 import 'package:telegram_prime/services/local_storage.dart';
+import 'package:telegram_prime/services/navigator_key.dart';
+import 'package:telegram_prime/views/premium_view.dart';
 
 class SettingsController extends GetxController {
   static SettingsController get instance => Get.find();
@@ -12,10 +14,12 @@ class SettingsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    isPremium = LocalStorage.getData(isPremiumUser, KeyType.BOOL);
-    debugPrint('isPremiumUser: $isPremium');
-    fetchProducts();
-    checkSubscriptionStatus();
+    callAPIs();
+  }
+
+  Future<void> callAPIs() async {
+    await checkSubscriptionStatus();
+    await fetchProducts();
   }
 
   // Variables
@@ -57,6 +61,17 @@ class SettingsController extends GetxController {
           debugPrint(
               'Free Product duration: ${storeProduct.introductoryPrice?.period}'); // Should show 3 days
         }
+
+        // Don't redirect if user is not complete onboarding process yet
+        if (!LocalStorage.getData(isOnboardingDone, KeyType.BOOL)) return;
+
+        // Don't redirect if user is already subscribed
+        if (isPremium) return;
+
+        // Don't redirect if there is no purchase product
+        if (storeProduct.isEmpty) return;
+
+        NavigatorKey.push(const PremiumView());
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -116,7 +131,7 @@ class SettingsController extends GetxController {
 
       if (isPremium) {
         isLoading = false;
-        // Grant access to premium tracking features
+        // Grant access to premium features
         // (e.g., update UI or store the entitlement state locally)
         LocalStorage.addData(isPremiumUser, true);
         Get.back();
@@ -174,12 +189,17 @@ class SettingsController extends GetxController {
           customerInfo.entitlements.all[entitlementID];
       if (entitlement != null && entitlement.isActive) {
         isPremium = true;
+        LocalStorage.addData(isPremiumUser, true);
       } else {
         isPremium = false;
+        LocalStorage.addData(isPremiumUser, false);
+        NavigatorKey.push(const PremiumView());
       }
+      debugPrint('isPremiumUser: $isPremium');
     } catch (e) {
       debugPrint("Error fetching subscription status: $e");
       isPremium = false;
+      LocalStorage.addData(isPremiumUser, false);
     }
   }
 }

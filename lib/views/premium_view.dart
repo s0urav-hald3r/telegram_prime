@@ -11,16 +11,35 @@ import 'package:telegram_prime/config/icons.dart';
 import 'package:telegram_prime/config/images.dart';
 import 'package:telegram_prime/controllers/settings_controller.dart';
 
-class PremiumView extends StatelessWidget {
+class PremiumView extends StatefulWidget {
   const PremiumView({super.key});
+
+  @override
+  State<PremiumView> createState() => _PremiumViewState();
+}
+
+class _PremiumViewState extends State<PremiumView> {
+  bool _showAppbar = false;
+  final controller = SettingsController.instance;
+
+  late StoreProduct monthly;
+
+  @override
+  void initState() {
+    super.initState();
+    monthly = controller.storeProduct
+        .firstWhere((element) => element.identifier == monthlyPlan);
+
+    Future.delayed(const Duration(seconds: 3), () {
+      setState(() {
+        _showAppbar = true;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final controller = SettingsController.instance;
-
-    StoreProduct monthly = controller.storeProduct
-        .firstWhere((element) => element.identifier == monthlyPlan);
 
     return Scaffold(
       body: SizedBox(
@@ -49,7 +68,7 @@ class PremiumView extends StatelessWidget {
             height: size.height,
             child: SafeArea(
               child: Column(children: [
-                const PremiumAppBar(),
+                if (_showAppbar) const PremiumAppBar(),
                 const Spacer(),
                 SvgPicture.asset(premiumLogo),
                 SizedBox(height: 16.h),

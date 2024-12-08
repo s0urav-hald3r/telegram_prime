@@ -29,7 +29,7 @@ class _BotViewState extends State<BotView> {
   }
 
   Future loadBots() async {
-    await controller.getBots();
+    if (controller.bots.isEmpty) await controller.getBots();
     filteredItems = controller.bots;
   }
 

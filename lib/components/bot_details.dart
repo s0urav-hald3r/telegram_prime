@@ -64,7 +64,7 @@ class BotDetails extends StatelessWidget {
             ),
             SizedBox(height: 8.h),
             Text(
-              botModel.userName ?? 'NA',
+              botModel.description ?? 'NA',
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontWeight: FontWeight.w600,

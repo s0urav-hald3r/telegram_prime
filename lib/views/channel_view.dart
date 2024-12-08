@@ -28,7 +28,7 @@ class _ChannelViewState extends State<ChannelView> {
   @override
   void initState() {
     super.initState();
-    controller.getChannels();
+    if (controller.channels.isEmpty) controller.getChannels();
     _scrollController.addListener(_loadMore);
   }
 

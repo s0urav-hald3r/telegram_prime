@@ -44,9 +44,9 @@ class BotCard extends StatelessWidget {
           child: SvgPicture.asset(bot),
         ),
         SizedBox(width: 4.w),
-        const Text(
-          'I am a bot',
-          style: TextStyle(
+        Text(
+          botModel.userName ?? 'NA',
+          style: const TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 11,
             color: Color(0xFFA7ABB1),
