@@ -33,13 +33,13 @@ app.get('/', (req, res) => res.send('Welcome to Tele Prime Admin Portal!'))
 app.get('/add', (req, res) => res.render('home'))
 
 app.post('/add', async (req, res) => {
-    let { displayName, userName, image } = req.body
+    let { displayName, userName, description, image } = req.body
 
     if (!(displayName && userName && image)) {
         return res.status(400).json({ 'status': false, 'error': 'All fields are required!' })
     }
 
-    const newBot = { displayName, userName, image };
+    const newBot = { displayName, userName, description, image };
 
     try {
         const docRef = await firestore.collection('bots').add(newBot); // 'bots' is the Firestore collection
