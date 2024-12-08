@@ -93,7 +93,7 @@ class HomeController extends GetxController {
       }
 
       loadMore ? isLoadingMore = false : isLoading = false;
-      channels.addAll(temp);
+      loadMore ? channels.addAll(temp) : channels = temp;
     } catch (e, stack) {
       loadMore ? isLoadingMore = false : isLoading = false;
       debugPrint('error: $e');
@@ -132,7 +132,7 @@ class HomeController extends GetxController {
       }
 
       isLoadingBots = false;
-      bots.addAll(temp);
+      bots.addAllIf(bots.isEmpty, temp);
     } catch (e, stack) {
       isLoadingBots = false;
       debugPrint('error: $e');
