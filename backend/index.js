@@ -9,7 +9,6 @@ const admin = require('firebase-admin');
 
 // Initialize Firebase Admin SDK
 try {
-    console.log(`Environment ${process.env.ENV}`)
 
     // Parse the JSON string from the environment variable
     const serviceAccount = process.env.ENV === 'prod' ? JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT) : require('./serviceAccountKey.json');
