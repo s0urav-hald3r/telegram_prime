@@ -123,8 +123,12 @@ class BotDetails extends StatelessWidget {
                     ),
                   ),
                   onPressed: () async {
-                    final url =
-                        Uri.parse('https://t.me/${botModel.userName ?? ''}');
+                    String userName = botModel.userName ?? '';
+
+                    if (userName.isNotEmpty && userName.startsWith('@')) {
+                      userName = userName.substring(1);
+                    }
+                    final url = Uri.parse('https://t.me/$userName');
                     try {
                       if (!await launchUrl(url)) {
                         throw Exception('Could not launch $url');
