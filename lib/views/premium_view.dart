@@ -92,13 +92,25 @@ class _PremiumViewState extends State<PremiumView> {
                   ),
                 ),
                 SizedBox(height: 16.h),
-                Text(
-                  '${monthly.priceString}/month',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: primaryColor,
-                  ),
+                RichText(
+                  text: TextSpan(children: [
+                    const TextSpan(
+                      text: '3 Days Free, Then ',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: whiteColor,
+                      ),
+                    ),
+                    TextSpan(
+                      text: '${monthly.priceString}/month',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color: primaryColor,
+                      ),
+                    )
+                  ]),
                 ),
                 // SizedBox(height: 4.h),
                 // const Text(

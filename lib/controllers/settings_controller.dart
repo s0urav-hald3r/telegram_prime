@@ -193,7 +193,6 @@ class SettingsController extends GetxController {
       } else {
         isPremium = false;
         LocalStorage.addData(isPremiumUser, false);
-        NavigatorKey.push(const PremiumView());
       }
       debugPrint('isPremiumUser: $isPremium');
     } catch (e) {

@@ -15,3 +15,9 @@ const footerText = "Don't forget to add your purchases terms and conditions.";
 
 // TO DO: add the Apple API key for your app from the RevenueCat dashboard: https://app.revenuecat.com
 const appleApiKey = 'appl_OnLmoDPxAtzFfeaYNwqFwEqmWUp';
+
+// Required urls
+const String shareText =
+    'Now use Dual telegram in one phone 🔗\nhttps://apps.apple.com/app/id6739142712';
+const String privacyPolicy = 'https://sites.google.com/view/teleprime/home';
+const String termsOfUse = 'https://sites.google.com/view/teleprime/termsof-use';

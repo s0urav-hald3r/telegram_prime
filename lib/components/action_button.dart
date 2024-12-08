@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:in_app_review/in_app_review.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:telegram_prime/config/colors.dart';
+import 'package:telegram_prime/config/constants.dart';
 import 'package:telegram_prime/config/extension.dart';
 import 'package:telegram_prime/config/icons.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ActionButton extends StatelessWidget {
   const ActionButton({super.key});
@@ -20,7 +24,11 @@ class ActionButton extends StatelessWidget {
                 rate,
                 'Rate This App',
                 const Color(0xFFF15757),
-                () {},
+                () async {
+                  if (await InAppReview.instance.isAvailable()) {
+                    InAppReview.instance.requestReview();
+                  }
+                },
               ),
             ),
             SizedBox(width: 10.w),
@@ -29,7 +37,9 @@ class ActionButton extends StatelessWidget {
                 share,
                 'Share This App',
                 const Color(0xFF00C979),
-                () {},
+                () async {
+                  await Share.share(shareText);
+                },
               ),
             )
           ]),
@@ -43,7 +53,16 @@ class ActionButton extends StatelessWidget {
                 privacy,
                 'Privacy Policy',
                 const Color(0xFFF0A059),
-                () {},
+                () async {
+                  try {
+                    Uri uri = Uri.parse(privacyPolicy);
+                    if (!await launchUrl(uri)) {
+                      throw Exception('Could not launch $uri');
+                    }
+                  } catch (e) {
+                    debugPrint('error while launching: $e');
+                  }
+                },
               ),
             ),
             SizedBox(width: 10.w),
@@ -52,7 +71,16 @@ class ActionButton extends StatelessWidget {
                 terms,
                 'Terms of Use',
                 const Color(0xFF7A65FE),
-                () {},
+                () async {
+                  try {
+                    Uri uri = Uri.parse(termsOfUse);
+                    if (!await launchUrl(uri)) {
+                      throw Exception('Could not launch $uri');
+                    }
+                  } catch (e) {
+                    debugPrint('error while launching: $e');
+                  }
+                },
               ),
             )
           ]),
@@ -63,7 +91,9 @@ class ActionButton extends StatelessWidget {
 
   Widget _actionCard(String icon, String title, Color bg, Function callBack) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        callBack();
+      },
       child: Container(
         height: 64.h,
         padding: const EdgeInsets.all(10),
