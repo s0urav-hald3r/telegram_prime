@@ -1,14 +1,36 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:telegram_prime/config/colors.dart';
 import 'package:telegram_prime/config/constants.dart';
 import 'package:telegram_prime/controllers/home_controller.dart';
+import 'package:telegram_prime/controllers/settings_controller.dart';
 import 'package:telegram_prime/services/local_storage.dart';
 import 'package:telegram_prime/services/navigator_key.dart';
+import 'package:telegram_prime/services/store_config.dart';
 import 'package:telegram_prime/views/home_view.dart';
 import 'package:telegram_prime/views/onboarding_view.dart';
+
+Future<void> _configureSDK() async {
+  // Enable debug logs before calling `configure`.
+  if (kReleaseMode) {
+    await Purchases.setLogLevel(LogLevel.info);
+  } else {
+    await Purchases.setLogLevel(LogLevel.debug);
+  }
+
+  PurchasesConfiguration configuration;
+
+  configuration = PurchasesConfiguration(StoreConfig.instance.apiKey);
+
+  await Purchases.configure(configuration);
+}
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -17,8 +39,24 @@ void main() async {
   // Initialize storage
   await GetStorage.init();
 
+  // Configure store for in-app purchase
+  if (Platform.isIOS) {
+    StoreConfig(
+      store: Store.appStore,
+      apiKey: appleApiKey,
+    );
+  }
+
+  await _configureSDK();
+
   // Dependency injection
   Get.lazyPut(() => HomeController());
+  Get.put(SettingsController());
+
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
   // whenever your initialization is completed, remove the splash screen:
   FlutterNativeSplash.remove();

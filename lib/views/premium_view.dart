@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:telegram_prime/components/premium_appbar.dart';
 import 'package:telegram_prime/components/premium_links.dart';
 import 'package:telegram_prime/config/colors.dart';
+import 'package:telegram_prime/config/constants.dart';
 import 'package:telegram_prime/config/extension.dart';
 import 'package:telegram_prime/config/icons.dart';
 import 'package:telegram_prime/config/images.dart';
+import 'package:telegram_prime/controllers/settings_controller.dart';
 
 class PremiumView extends StatelessWidget {
   const PremiumView({super.key});
@@ -13,6 +17,10 @@ class PremiumView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final controller = SettingsController.instance;
+
+    StoreProduct monthly = controller.storeProduct
+        .firstWhere((element) => element.identifier == monthlyPlan);
 
     return Scaffold(
       body: SizedBox(
@@ -65,23 +73,23 @@ class PremiumView extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 16.h),
-                const Text(
-                  '₹399/month',
-                  style: TextStyle(
+                Text(
+                  '${monthly.priceString}/month',
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: primaryColor,
                   ),
                 ),
-                SizedBox(height: 4.h),
-                const Text(
-                  'Billed yearly',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: whiteColor,
-                  ),
-                ),
+                // SizedBox(height: 4.h),
+                // const Text(
+                //   'Billed yearly',
+                //   style: TextStyle(
+                //     fontSize: 14,
+                //     fontWeight: FontWeight.w400,
+                //     color: whiteColor,
+                //   ),
+                // ),
                 SizedBox(height: 24.h),
                 Container(
                   width: MediaQuery.of(context).size.width,
@@ -91,17 +99,25 @@ class PremiumView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(50),
                     color: primaryColor,
                   ),
-                  child: ElevatedButton(
-                    child: const Text(
-                      'Continue',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: whiteColor,
+                  child: Obx(() {
+                    return ElevatedButton(
+                      child: Text(
+                        controller.isPremium ? 'Subscribed' : 'Continue ≻',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: whiteColor,
+                        ),
                       ),
-                    ),
-                    onPressed: () {},
-                  ),
+                      onPressed: () {
+                        if (controller.isPremium) {
+                          null;
+                        } else {
+                          controller.purchaseProduct(monthly);
+                        }
+                      },
+                    );
+                  }),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16),

@@ -5,6 +5,12 @@ PODS:
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - purchases_flutter (8.3.0):
+    - Flutter
+    - PurchasesHybridCommon (= 13.12.0)
+  - PurchasesHybridCommon (13.12.0):
+    - RevenueCat (= 5.12.0)
+  - RevenueCat (5.12.0)
   - share_plus (0.0.1):
     - Flutter
   - sqflite_darwin (0.0.4):
@@ -20,10 +26,16 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - purchases_flutter (from `.symlinks/plugins/purchases_flutter/ios`)
   - share_plus (from `.symlinks/plugins/share_plus/ios`)
   - sqflite_darwin (from `.symlinks/plugins/sqflite_darwin/darwin`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
   - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/darwin`)
+
+SPEC REPOS:
+  trunk:
+    - PurchasesHybridCommon
+    - RevenueCat
 
 EXTERNAL SOURCES:
   Flutter:
@@ -32,6 +44,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_native_splash/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  purchases_flutter:
+    :path: ".symlinks/plugins/purchases_flutter/ios"
   share_plus:
     :path: ".symlinks/plugins/share_plus/ios"
   sqflite_darwin:
@@ -45,11 +59,14 @@ SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_native_splash: 576fbd69b830a63594ae678396fa17e43abbc5f8
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
+  purchases_flutter: c284e73e46f9334bec967ed9fb9223b8a3781bc2
+  PurchasesHybridCommon: 34be8fccff5e253c67ab624965e2cbda7f640632
+  RevenueCat: 459e3e60c895e20c0e7a2d767bece11140854306
   share_plus: 50da8cb520a8f0f65671c6c6a99b3617ed10a58a
   sqflite_darwin: 20b2a3a3b70e43edae938624ce550a3cbf66a3d0
   url_launcher_ios: 694010445543906933d732453a59da0a173ae33d
   webview_flutter_wkwebview: 44d4dee7d7056d5ad185d25b38404436d56c547c
 
-PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
+PODFILE CHECKSUM: a57f30d18f102dd3ce366b1d62a55ecbef2158e5
 
 COCOAPODS: 1.16.2

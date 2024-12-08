@@ -6,9 +6,6 @@ class DioClient {
   DioClient()
       : _dio = Dio(
           BaseOptions(
-            baseUrl: '',
-            connectTimeout: const Duration(seconds: 10),
-            receiveTimeout: const Duration(seconds: 10),
             contentType: Headers.jsonContentType,
             responseType: ResponseType.json,
           ),
