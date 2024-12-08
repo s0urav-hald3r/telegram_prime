@@ -27,53 +27,55 @@ class SettingsView extends StatelessWidget {
         height: MediaQuery.of(context).size.height,
         child: Column(children: [
           SizedBox(height: 20.h),
-          SvgPicture.asset(premiumLogo),
-          SizedBox(height: 20.h),
-          const Text(
-            'Upgrade to Premium',
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 24,
-              color: whiteColor,
+          if (!SettingsController.instance.isPremium) ...[
+            SvgPicture.asset(premiumLogo),
+            SizedBox(height: 20.h),
+            const Text(
+              'Upgrade to Premium',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 24,
+                color: whiteColor,
+              ),
             ),
-          ),
-          SizedBox(height: 8.h),
-          Text(
-            '${monthly.priceString}/month',
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
-              color: whiteColor,
+            SizedBox(height: 8.h),
+            Text(
+              '${monthly.priceString}/month',
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+                color: whiteColor,
+              ),
             ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 52,
-            margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: primaryColor,
-            ),
-            child: Obx(() {
-              return ElevatedButton(
-                child: Text(
-                  controller.isPremium ? 'Subscribed' : 'Continue ≻',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: whiteColor,
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 52,
+              margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: primaryColor,
+              ),
+              child: Obx(() {
+                return ElevatedButton(
+                  child: Text(
+                    controller.isPremium ? 'Subscribed' : 'Continue ≻',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: whiteColor,
+                    ),
                   ),
-                ),
-                onPressed: () {
-                  if (controller.isPremium) {
-                    null;
-                  } else {
-                    controller.purchaseProduct(monthly);
-                  }
-                },
-              );
-            }),
-          ),
+                  onPressed: () {
+                    if (controller.isPremium) {
+                      null;
+                    } else {
+                      controller.purchaseProduct(monthly);
+                    }
+                  },
+                );
+              }),
+            ),
+          ],
           const ActionButton(),
           Container(
             width: MediaQuery.of(context).size.width,

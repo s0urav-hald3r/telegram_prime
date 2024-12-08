@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:telegram_prime/config/colors.dart';
 import 'package:telegram_prime/config/extension.dart';
 import 'package:telegram_prime/config/icons.dart';
+import 'package:telegram_prime/controllers/settings_controller.dart';
 import 'package:telegram_prime/services/navigator_key.dart';
 import 'package:telegram_prime/views/premium_view.dart';
 
@@ -34,19 +35,20 @@ class BackAppbar extends StatelessWidget implements PreferredSizeWidget {
         ),
         title: Text(title),
         actions: [
-          InkWell(
-            onTap: () {
-              NavigatorKey.push(const PremiumView());
-            },
-            child: Container(
-              margin: EdgeInsets.only(right: 24.w),
-              width: 24.w,
-              child: SvgPicture.asset(
-                premiumIcon,
-                fit: BoxFit.contain,
+          if (!SettingsController.instance.isPremium)
+            InkWell(
+              onTap: () {
+                NavigatorKey.push(const PremiumView());
+              },
+              child: Container(
+                margin: EdgeInsets.only(right: 24.w),
+                width: 24.w,
+                child: SvgPicture.asset(
+                  premiumIcon,
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
-          ),
         ]);
   }
 }
