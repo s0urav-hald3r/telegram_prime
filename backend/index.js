@@ -8,12 +8,19 @@ const PORT = process.env.PORT || 3000;
 const admin = require('firebase-admin');
 
 // Initialize Firebase Admin SDK
-const serviceAccount = require('./serviceAccountKey.json'); // Path to your service account key file
+try {
+    console.log(`Environment ${process.env.ENV}`)
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://tele-prime-c66eb.firebaseio.com" // Replace with your Firebase Realtime Database URL if using
-});
+    // Parse the JSON string from the environment variable
+    const serviceAccount = process.env.ENV === 'prod' ? JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT) : require('./serviceAccountKey.json');
+
+    // Initialize Firebase Admin SDK
+    admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+
+    console.log("Firebase Admin SDK initialized successfully!");
+} catch (error) {
+    console.error("Error parsing service account JSON:", error.message);
+}
 
 const firestore = admin.firestore(); // Firestore Database Reference
 
