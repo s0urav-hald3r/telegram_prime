@@ -21,3 +21,4 @@ const String shareText =
     'Now use Dual telegram in one phone 🔗\nhttps://apps.apple.com/app/id6739142712';
 const String privacyPolicy = 'https://sites.google.com/view/teleprime/home';
 const String termsOfUse = 'https://sites.google.com/view/teleprime/termsof-use';
+const String support = 'https://sites.google.com/view/teleprime/support';

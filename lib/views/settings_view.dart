@@ -9,6 +9,7 @@ import 'package:telegram_prime/config/constants.dart';
 import 'package:telegram_prime/config/extension.dart';
 import 'package:telegram_prime/config/icons.dart';
 import 'package:telegram_prime/controllers/settings_controller.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
@@ -39,13 +40,25 @@ class SettingsView extends StatelessWidget {
               ),
             ),
             SizedBox(height: 8.h),
-            Text(
-              '${monthly.priceString}/month',
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 16,
-                color: whiteColor,
-              ),
+            RichText(
+              text: TextSpan(children: [
+                const TextSpan(
+                  text: '3 Days Free, Then ',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: whiteColor,
+                  ),
+                ),
+                TextSpan(
+                  text: '${monthly.priceString}/month',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: primaryColor,
+                  ),
+                )
+              ]),
             ),
             Container(
               width: MediaQuery.of(context).size.width,
@@ -101,7 +114,16 @@ class SettingsView extends StatelessWidget {
                   ),
                 ]),
               ),
-              onPressed: () {},
+              onPressed: () async {
+                try {
+                  Uri uri = Uri.parse(support);
+                  if (!await launchUrl(uri)) {
+                    throw Exception('Could not launch $uri');
+                  }
+                } catch (e) {
+                  debugPrint('error while launching: $e');
+                }
+              },
             ),
           ),
         ]),

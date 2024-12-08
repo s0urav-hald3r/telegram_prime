@@ -24,9 +24,9 @@ class HomeView extends StatelessWidget {
           resizeToAvoidBottomInset: false,
           appBar: CustomAppbar(
               title: [
-            'Telegram Prime',
-            'Telegram Channels',
-            'Telegram Bots',
+            'Tele Prime',
+            'Tele Channels',
+            'Tele Bots',
             'Direct Chat'
           ][controller.homeIndex]),
           body: PageView(

@@ -6,6 +6,7 @@ import 'package:telegram_prime/config/colors.dart';
 import 'package:telegram_prime/config/constants.dart';
 import 'package:telegram_prime/services/local_storage.dart';
 import 'package:telegram_prime/services/navigator_key.dart';
+import 'package:telegram_prime/services/overlay_loader.dart';
 import 'package:telegram_prime/views/premium_view.dart';
 
 class SettingsController extends GetxController {
@@ -24,19 +25,16 @@ class SettingsController extends GetxController {
 
   // Variables
   final RxBool _isPremium = false.obs;
-  final RxBool _isLoading = false.obs;
 
   final RxList<StoreProduct> _storeProduct = <StoreProduct>[].obs;
 
   // Getters
   bool get isPremium => _isPremium.value;
-  bool get isLoading => _isLoading.value;
 
   List get storeProduct => _storeProduct;
 
   // Setters
   set isPremium(value) => _isPremium.value = value;
-  set isLoading(value) => _isLoading.value = value;
 
   set storeProduct(value) => _storeProduct.value = value;
 
@@ -79,7 +77,7 @@ class SettingsController extends GetxController {
   }
 
   Future purchaseProduct(StoreProduct storeProduct) async {
-    isLoading = true;
+    OverlayLoader.show();
     try {
       final customerInfo = await Purchases.purchaseStoreProduct(storeProduct);
 
@@ -88,7 +86,7 @@ class SettingsController extends GetxController {
         debugPrint("User successfully subscribed with free trial!");
         isPremium = true;
         LocalStorage.addData(isPremiumUser, true);
-        isLoading = false;
+        OverlayLoader.hide();
         Get.back();
         Get.snackbar('', '',
             icon: const Icon(Icons.done),
@@ -105,13 +103,13 @@ class SettingsController extends GetxController {
             backgroundColor: faddedBgColor,
             snackPosition: SnackPosition.BOTTOM);
       } else {
-        isLoading = false;
+        OverlayLoader.hide();
       }
 
       debugPrint('customerInfo while purchase: $customerInfo');
     } on PlatformException catch (e) {
       debugPrint('error: $e');
-      isLoading = false;
+      OverlayLoader.hide();
       var errorCode = PurchasesErrorHelper.getErrorCode(e);
       if (errorCode != PurchasesErrorCode.purchaseCancelledError) {
         debugPrint('PurchasesErrorCode.purchaseCancelledError');
@@ -120,7 +118,7 @@ class SettingsController extends GetxController {
   }
 
   Future restorePurchases() async {
-    isLoading = true;
+    OverlayLoader.show();
     await Future.delayed(const Duration(seconds: 1));
     try {
       CustomerInfo customerInfo = await Purchases.restorePurchases();
@@ -130,7 +128,7 @@ class SettingsController extends GetxController {
       isPremium = customerInfo.entitlements.active.containsKey(entitlementID);
 
       if (isPremium) {
-        isLoading = false;
+        OverlayLoader.hide();
         // Grant access to premium features
         // (e.g., update UI or store the entitlement state locally)
         LocalStorage.addData(isPremiumUser, true);
@@ -150,7 +148,7 @@ class SettingsController extends GetxController {
             backgroundColor: faddedBgColor,
             snackPosition: SnackPosition.BOTTOM);
       } else {
-        isLoading = false;
+        OverlayLoader.hide();
         Get.snackbar('', '',
             icon: const Icon(Icons.error),
             shouldIconPulse: true,
@@ -167,7 +165,7 @@ class SettingsController extends GetxController {
             snackPosition: SnackPosition.BOTTOM);
       }
     } on PlatformException catch (e) {
-      isLoading = false;
+      OverlayLoader.hide();
       debugPrint('error: $e');
       var errorCode = PurchasesErrorHelper.getErrorCode(e);
       if (errorCode == PurchasesErrorCode.receiptAlreadyInUseError) {
