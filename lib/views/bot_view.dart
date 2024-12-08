@@ -97,7 +97,7 @@ class _BotViewState extends State<BotView> {
                       padding: EdgeInsets.symmetric(
                           horizontal: 16.w), // Number of items
                       itemBuilder: (context, index) {
-                        final bot = controller.bots[index];
+                        final bot = filteredItems[index];
 
                         return InkWell(
                             onTap: () {
