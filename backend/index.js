@@ -6,6 +6,8 @@ const PORT = process.env.PORT || 3000;
 
 //Connect to DB
 const admin = require('firebase-admin');
+// Import FieldPath if not already imported
+const { FieldPath } = require('firebase-admin/firestore');
 
 // Initialize Firebase Admin SDK
 try {
@@ -51,22 +53,38 @@ app.post('/add', async (req, res) => {
     }
 })
 
-// GET Endpoint to fetch the list of bots
 app.get('/bots', async (req, res) => {
-    try {
-        const botsRef = firestore.collection('bots'); // 'bots' is the Firestore collection name
-        const snapshot = await botsRef.get();
+    let { cursor } = req.query;
 
-        if (snapshot.empty) {
-            return res.status(200).json({ 'status': true, 'message': 'Success', 'data': [] });
+    try {
+        let query = firestore.collection('bots').orderBy(FieldPath.documentId()).limit(10);
+
+        // If cursor is provided, use it to fetch the next set of documents
+        if (cursor) {
+            query = query.startAfter(cursor); // Pass the cursor from the previous request
         }
 
+        const snapshot = await query.get();
+
+        if (snapshot.empty) {
+            return res.status(200).json({ 'status': true, 'message': 'No more data', 'data': [] });
+        }
+
+        // Map the documents to the response format
         const botsList = snapshot.docs.map(doc => ({
-            id: doc.id, // Document ID
-            ...doc.data(), // Document Data
+            id: doc.id,
+            ...doc.data(),
         }));
 
-        res.status(200).json({ 'status': true, 'message': 'Success', 'data': botsList }); // Respond with the bots list
+        // Get the cursor for the next page (last document in the current page)
+        const lastCursor = snapshot.docs[snapshot.docs.length - 1];
+
+        res.status(200).json({
+            'status': true,
+            'message': 'Success',
+            'data': botsList,
+            'lastCursor': lastCursor ? lastCursor.id : null, // Pass the ID or other cursor value,
+        });
     } catch (error) {
         console.error('Error fetching bots:', error);
         res.status(500).json({ 'status': false, 'error': 'Failed to fetch bots' });
