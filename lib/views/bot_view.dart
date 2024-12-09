@@ -21,11 +21,20 @@ class _BotViewState extends State<BotView> {
   final controller = HomeController.instance;
   List<BotModel> filteredItems = <BotModel>[];
   String searchQuery = "";
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     loadBots();
+    _scrollController.addListener(_loadMore);
+  }
+
+  Future<void> _loadMore() async {
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
+      controller.getBots(loadMore: true);
+    }
   }
 
   Future loadBots() async {
@@ -41,6 +50,12 @@ class _BotViewState extends State<BotView> {
               item.displayName!.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -87,6 +102,7 @@ class _BotViewState extends State<BotView> {
                 )
               : Expanded(
                   child: GridView.builder(
+                      controller: _scrollController,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2, // Number of columns
                         crossAxisSpacing: 30.w, // Horizontal spacing
@@ -112,6 +128,15 @@ class _BotViewState extends State<BotView> {
                       }),
                 );
         }),
+        Obx(() {
+          if (controller.isLoadingMoreBots) {
+            return const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: CupertinoActivityIndicator(color: whiteColor),
+            );
+          }
+          return const SizedBox.shrink();
+        })
       ]),
     );
   }
