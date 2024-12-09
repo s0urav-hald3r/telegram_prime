@@ -36,8 +36,8 @@ class HomeController extends GetxController {
   final RxInt _onboardingIndex = 0.obs;
   final RxBool _loadingWebView = true.obs;
   final RxBool _isQuery = false.obs;
-  final RxBool _isLoading = true.obs;
-  final RxBool _isLoadingBots = true.obs;
+  final RxBool _isLoading = false.obs;
+  final RxBool _isLoadingBots = false.obs;
   final RxBool _isLoadingMore = false.obs;
   final RxBool _isSearching = false.obs;
   final RxBool _isSearchingMore = false.obs;
@@ -82,6 +82,8 @@ class HomeController extends GetxController {
 
   // APIs
   Future<void> getChannels({bool loadMore = false}) async {
+    if (isLoading) return;
+
     loadMore ? isLoadingMore = true : isLoading = true;
     try {
       final temp = <ChannelModel>[];
@@ -122,6 +124,8 @@ class HomeController extends GetxController {
   }
 
   Future<void> getBots() async {
+    if (isLoadingBots) return;
+
     isLoadingBots = true;
     try {
       final temp = <BotModel>[];
