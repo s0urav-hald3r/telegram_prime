@@ -45,7 +45,7 @@ class HomeView extends StatelessWidget {
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _navItem(0, home, 'Home', () {
+                  _navItem(0, home, 'Dual', () {
                     controller.homeIndex = 0;
                     controller.pageController.jumpToPage(0);
                   }),
