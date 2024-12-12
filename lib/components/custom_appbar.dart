@@ -54,25 +54,25 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
             ),
-          Obx(() {
-            if (!SettingsController.instance.isPremium) {
-              return InkWell(
-                onTap: () {
-                  NavigatorKey.push(const PremiumView());
-                },
-                child: Container(
-                  margin: EdgeInsets.only(right: 24.w),
-                  width: 24.w,
-                  child: SvgPicture.asset(
-                    premiumIcon,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              );
-            }
+          // Obx(() {
+          //   if (!SettingsController.instance.isPremium) {
+          //     return InkWell(
+          //       onTap: () {
+          //         NavigatorKey.push(const PremiumView());
+          //       },
+          //       child: Container(
+          //         margin: EdgeInsets.only(right: 24.w),
+          //         width: 24.w,
+          //         child: SvgPicture.asset(
+          //           premiumIcon,
+          //           fit: BoxFit.contain,
+          //         ),
+          //       ),
+          //     );
+          //   }
 
-            return const SizedBox.shrink();
-          }),
+          //   return const SizedBox.shrink();
+          // }),
         ]);
   }
 }

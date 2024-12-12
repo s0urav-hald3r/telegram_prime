@@ -104,7 +104,9 @@ class _BotViewState extends State<BotView> {
                   child: GridView.builder(
                       controller: _scrollController,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2, // Number of columns
+                        crossAxisCount: MediaQuery.of(context).size.width > 780
+                            ? 3
+                            : 2, // Number of columns
                         crossAxisSpacing: 30.w, // Horizontal spacing
                         mainAxisSpacing: 30.h, // Vertical spacing
                         childAspectRatio: 1.5, // Aspect ratio of each item

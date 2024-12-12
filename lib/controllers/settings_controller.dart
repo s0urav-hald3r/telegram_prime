@@ -69,7 +69,7 @@ class SettingsController extends GetxController {
         // Don't redirect if there is no purchase product
         if (storeProduct.isEmpty) return;
 
-        NavigatorKey.push(const PremiumView());
+        // NavigatorKey.push(const PremiumView());
       }
     } catch (e) {
       debugPrint(e.toString());

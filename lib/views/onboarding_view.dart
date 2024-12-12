@@ -8,6 +8,7 @@ import 'package:telegram_prime/config/images.dart';
 import 'package:telegram_prime/controllers/home_controller.dart';
 import 'package:telegram_prime/services/local_storage.dart';
 import 'package:telegram_prime/services/navigator_key.dart';
+import 'package:telegram_prime/views/home_view.dart';
 import 'package:telegram_prime/views/premium_view.dart';
 
 class OnboardingView extends StatefulWidget {
@@ -164,8 +165,9 @@ class _OnboardingViewState extends State<OnboardingView> {
                       pageController.next();
                     } else {
                       LocalStorage.addData(isOnboardingDone, true);
-                      NavigatorKey.pushReplacement(const PremiumView(),
-                          routeName: '/onboardingToPremium');
+                      // NavigatorKey.pushReplacement(const PremiumView(),
+                      //     routeName: '/onboardingToPremium');
+                      NavigatorKey.pushReplacement(const HomeView());
                     }
                   },
                 ),

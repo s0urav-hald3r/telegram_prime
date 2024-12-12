@@ -51,7 +51,7 @@ void main() async {
 
   // Dependency injection
   Get.lazyPut(() => HomeController());
-  Get.put(SettingsController());
+  // Get.put(SettingsController());
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

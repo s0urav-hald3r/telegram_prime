@@ -111,7 +111,9 @@ class _ChannelViewState extends State<ChannelView> {
                   child: GridView.builder(
                       controller: _scrollController,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2, // Number of columns
+                        crossAxisCount: MediaQuery.of(context).size.width > 780
+                            ? 3
+                            : 2, // Number of columns
                         crossAxisSpacing: 10.w, // Horizontal spacing
                         mainAxisSpacing: 10.h, // Vertical spacing
                         childAspectRatio: 1.6, // Aspect ratio of each item

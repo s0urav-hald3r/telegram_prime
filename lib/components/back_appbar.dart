@@ -35,20 +35,20 @@ class BackAppbar extends StatelessWidget implements PreferredSizeWidget {
         ),
         title: Text(title),
         actions: [
-          if (!SettingsController.instance.isPremium)
-            InkWell(
-              onTap: () {
-                NavigatorKey.push(const PremiumView());
-              },
-              child: Container(
-                margin: EdgeInsets.only(right: 24.w),
-                width: 24.w,
-                child: SvgPicture.asset(
-                  premiumIcon,
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
+          // if (!SettingsController.instance.isPremium)
+          //   InkWell(
+          //     onTap: () {
+          //       NavigatorKey.push(const PremiumView());
+          //     },
+          //     child: Container(
+          //       margin: EdgeInsets.only(right: 24.w),
+          //       width: 24.w,
+          //       child: SvgPicture.asset(
+          //         premiumIcon,
+          //         fit: BoxFit.contain,
+          //       ),
+          //     ),
+          //   ),
         ]);
   }
 }

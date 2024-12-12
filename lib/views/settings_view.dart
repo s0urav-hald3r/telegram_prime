@@ -16,10 +16,10 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = SettingsController.instance;
+    // final controller = SettingsController.instance;
 
-    StoreProduct monthly = controller.storeProduct
-        .firstWhere((element) => element.identifier == monthlyPlan);
+    // StoreProduct monthly = controller.storeProduct
+    //     .firstWhere((element) => element.identifier == monthlyPlan);
 
     return Scaffold(
       appBar: const BackAppbar(title: 'Settings'),
@@ -28,67 +28,67 @@ class SettingsView extends StatelessWidget {
         height: MediaQuery.of(context).size.height,
         child: Column(children: [
           SizedBox(height: 20.h),
-          if (!SettingsController.instance.isPremium) ...[
-            SvgPicture.asset(premiumLogo),
-            SizedBox(height: 20.h),
-            const Text(
-              'Upgrade to Premium',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 24,
-                color: whiteColor,
-              ),
-            ),
-            SizedBox(height: 8.h),
-            RichText(
-              text: TextSpan(children: [
-                const TextSpan(
-                  text: '3 Days Free, Then ',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: whiteColor,
-                  ),
-                ),
-                TextSpan(
-                  text: '${monthly.priceString}/month',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: primaryColor,
-                  ),
-                )
-              ]),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 52,
-              margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: primaryColor,
-              ),
-              child: Obx(() {
-                return ElevatedButton(
-                  child: Text(
-                    controller.isPremium ? 'Subscribed' : 'Continue ≻',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: whiteColor,
-                    ),
-                  ),
-                  onPressed: () {
-                    if (controller.isPremium) {
-                      null;
-                    } else {
-                      controller.purchaseProduct(monthly);
-                    }
-                  },
-                );
-              }),
-            ),
-          ],
+          // if (!SettingsController.instance.isPremium) ...[
+          //   SvgPicture.asset(premiumLogo),
+          //   SizedBox(height: 20.h),
+          //   const Text(
+          //     'Upgrade to Premium',
+          //     style: TextStyle(
+          //       fontWeight: FontWeight.w700,
+          //       fontSize: 24,
+          //       color: whiteColor,
+          //     ),
+          //   ),
+          //   SizedBox(height: 8.h),
+          //   RichText(
+          //     text: TextSpan(children: [
+          //       const TextSpan(
+          //         text: '3 Days Free, Then ',
+          //         style: TextStyle(
+          //           fontSize: 14,
+          //           fontWeight: FontWeight.w500,
+          //           color: whiteColor,
+          //         ),
+          //       ),
+          //       TextSpan(
+          //         text: '${monthly.priceString}/month',
+          //         style: const TextStyle(
+          //           fontSize: 16,
+          //           fontWeight: FontWeight.w700,
+          //           color: primaryColor,
+          //         ),
+          //       )
+          //     ]),
+          //   ),
+          //   Container(
+          //     width: MediaQuery.of(context).size.width,
+          //     height: 52,
+          //     margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
+          //     decoration: BoxDecoration(
+          //       borderRadius: BorderRadius.circular(15),
+          //       color: primaryColor,
+          //     ),
+          //     child: Obx(() {
+          //       return ElevatedButton(
+          //         child: Text(
+          //           controller.isPremium ? 'Subscribed' : 'Continue ≻',
+          //           style: const TextStyle(
+          //             fontSize: 16,
+          //             fontWeight: FontWeight.w600,
+          //             color: whiteColor,
+          //           ),
+          //         ),
+          //         onPressed: () {
+          //           if (controller.isPremium) {
+          //             null;
+          //           } else {
+          //             controller.purchaseProduct(monthly);
+          //           }
+          //         },
+          //       );
+          //     }),
+          //   ),
+          // ],
           const ActionButton(),
           Container(
             width: MediaQuery.of(context).size.width,
