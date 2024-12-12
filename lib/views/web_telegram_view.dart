@@ -55,9 +55,8 @@ class _WebTelegramViewState extends State<WebTelegramView>
         ),
       )
       ..setUserAgent(
-        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36",
-      )
-      ..loadRequest(Uri.parse('https://web.telegram.org'));
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36")
+      ..loadRequest(Uri.parse('https://web.telegram.org/k/'));
   }
 
   @override
