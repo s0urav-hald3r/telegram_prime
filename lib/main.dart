@@ -40,14 +40,14 @@ void main() async {
   await GetStorage.init();
 
   // Configure store for in-app purchase
-  if (Platform.isIOS) {
-    StoreConfig(
-      store: Store.appStore,
-      apiKey: appleApiKey,
-    );
-  }
+  // if (Platform.isIOS) {
+  //   StoreConfig(
+  //     store: Store.appStore,
+  //     apiKey: appleApiKey,
+  //   );
+  // }
 
-  await _configureSDK();
+  // await _configureSDK();
 
   // Dependency injection
   Get.lazyPut(() => HomeController());
